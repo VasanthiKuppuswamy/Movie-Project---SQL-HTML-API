@@ -16,6 +16,22 @@ with engine.connect() as connection:
     """))
     connection.commit()
 
+# Seed initial data if table is empty
+with engine.connect() as connection:
+    result = connection.execute(text("SELECT COUNT(*) FROM movies"))
+    count = result.scalar()
+
+    if count == 0:
+        print("Seeding initial movie data...")
+        connection.execute(text("""
+            INSERT INTO movies (title, year, rating) VALUES
+            ('Inception', 2010, 8.8),
+            ('Interstellar', 2014, 8.6),
+            ('The Dark Knight', 2008, 9.0),
+            ('The Matrix', 1999, 8.7),
+            ('Pulp Fiction', 1994, 8.9)
+        """))
+        connection.commit()
 
 def get_movies():
     """Return all movies as a dictionary (compatible with movies.py)."""

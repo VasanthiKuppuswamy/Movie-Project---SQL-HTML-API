@@ -1,12 +1,13 @@
 import statistics
 import random
+import sys
 import matplotlib.pyplot as plt
 from fuzzywuzzy import process
-import sys
-import movie_storage as db
+import movie_storage_sql as db
 
 
 def main():
+
     """Starts the movie database."""
     menu_actions = {
         "0": sys.exit,
