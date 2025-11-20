@@ -1,4 +1,6 @@
+
 from sqlalchemy import create_engine, text
+
 
 # SQLite database connection
 DB_URL = "sqlite:///movies.db"
@@ -34,7 +36,7 @@ with engine.connect() as connection:
         connection.commit()
 
 def get_movies():
-    """Return all movies as a dictionary (compatible with movies.py)."""
+    """Return all movies as a dictionary (compatible with main.py)."""
     with engine.connect() as connection:
         result = connection.execute(text("SELECT title, year, rating FROM movies"))
         movies = result.fetchall()
@@ -51,8 +53,11 @@ def add_movie(title, year, rating):
             )
             connection.commit()
             print(f"Movie '{title}' added successfully.")
+            return True
         except Exception as e:
             print(f"Error adding movie: {e}")
+            return False
+
 
 
 def delete_movie(title):

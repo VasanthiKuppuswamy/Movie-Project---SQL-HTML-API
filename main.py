@@ -3,7 +3,9 @@ import random
 import sys
 import matplotlib.pyplot as plt
 from fuzzywuzzy import process
-import movie_storage_sql as db
+from movie_storage import movie_storage_sql as db
+
+
 
 
 def main():
@@ -59,8 +61,11 @@ def add_movie(movies):
     title = input("Enter movie name: ").strip()
     year = input("Enter release year: ").strip()
     rating = float(input("Enter rating (0–10): "))
-    db.add_movie(title, year, rating)
-    print(f"Movie '{title}' added!")
+    if db.add_movie(title, year, rating):
+
+        print(f"Movie '{title}' added!")
+    else:
+        print("Movie could not be added. Movie already exists.")
 
 
 def delete_movie(movies):
